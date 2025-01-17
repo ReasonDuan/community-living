@@ -1,0 +1,10 @@
+
+### 用户登录
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "user": "admin",
+  "password": "admin123"
+}
+
