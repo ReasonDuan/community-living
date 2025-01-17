@@ -4,7 +4,11 @@
       <router-view></router-view>
     </el-main>
 
-    <el-footer class="admin-footer" height="50px">
+    <el-footer 
+      v-if="!isLoginPage" 
+      class="admin-footer" 
+      height="50px"
+    >
       <div class="tab-bar">
         <router-link 
           to="/admin/merchants" 
@@ -39,9 +43,13 @@
 
 <script setup>
 import { useRoute } from 'vue-router'
+import { computed } from 'vue'
 import { Shop, Plus, User } from '@element-plus/icons-vue'
 
 const route = useRoute()
+
+// 判断是否是登录页面
+const isLoginPage = computed(() => route.name === 'admin-login')
 </script>
 
 <style scoped>

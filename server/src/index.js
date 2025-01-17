@@ -15,9 +15,11 @@ app.use(bodyParser.json());
 // 路由配置
 const merchantRoutes = require('./routes/merchants');
 const adminRoutes = require('./routes/admin');
+const authRoutes = require('./routes/auth');
 
 app.use('/api/merchants', merchantRoutes);
 app.use('/api/admin/merchants', adminRoutes);
+app.use('/api/auth', authRoutes);
 
 // 错误处理中间件
 app.use((err, req, res, next) => {

@@ -19,9 +19,15 @@ const router = createRouter({
       component: () => import('../views/admin/AdminLayout.vue'),
       children: [
         {
+          path: '',
+          name: 'admin-login',
+          component: () => import('../views/admin/LoginView.vue')
+        },
+        {
           path: 'merchants',
           name: 'admin-merchants',
-          component: () => import('../views/admin/MerchantList.vue')
+          component: () => import('../views/admin/MerchantList.vue'),
+          meta: { requiresAuth: true }
         },
         {
           path: 'merchants/add',
@@ -46,6 +52,23 @@ const router = createRouter({
       ]
     }
   ]
+})
+
+// 路由守卫
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      next({
+        name: 'admin-login',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
 })
 
 export default router
